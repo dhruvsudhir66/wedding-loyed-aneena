@@ -25,9 +25,9 @@ export default function MeetTheBride() {
     bride.jpeg is kept as the main image for now.
   */
   const photos = {
-    main: "/images/bride-5.jpeg",
-    second: "/images/bride-2.jpeg",
-    third: "/images/bride-4.jpg",
+    main: "/images/bride-5.webp",
+    second: "/images/bride-2.webp",
+    third: "/images/bride-4.webp",
   };
 
   return (
