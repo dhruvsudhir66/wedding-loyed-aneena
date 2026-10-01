@@ -2,7 +2,14 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Allura } from "next/font/google";
+import { Allura, Cormorant_Garamond } from "next/font/google";
+import { weddingConfig } from "@/config/wedding";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
 
 const allura = Allura({
   weight: "400",
@@ -11,12 +18,11 @@ const allura = Allura({
 });
 
 const invitation = {
-  eyebrow: "Save the date",
+  eyebrow: weddingConfig.copy.saveDate.eyebrow,
   date: "22 · 11 · 2026",
-  weekday: "Sunday",
-  location: "Kerala, India",
-  message:
-    "A new chapter is about to begin. We would love for you to be part of it.",
+  weekday: weddingConfig.date.weekday,
+  location: weddingConfig.date.location,
+  message: weddingConfig.copy.saveDate.message,
 };
 
 /* =========================================================
@@ -30,11 +36,11 @@ function WeddingRings() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="h-8 w-[72px] opacity-80"
+      className="h-7 w-[64px] opacity-70"
     >
-      <circle cx="39" cy="22" r="14" stroke="currentColor" strokeWidth="1.2" />
+      <circle cx="39" cy="22" r="14" stroke="currentColor" strokeWidth="1.1" />
 
-      <circle cx="61" cy="22" r="14" stroke="currentColor" strokeWidth="1.2" />
+      <circle cx="61" cy="22" r="14" stroke="currentColor" strokeWidth="1.1" />
 
       <path
         d="M39 8L42 11L39 14L36 11L39 8Z"
@@ -52,33 +58,6 @@ function WeddingRings() {
 }
 
 /* =========================================================
-   BACKGROUND
-   ========================================================= */
-
-function BackgroundImage() {
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
-    >
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(ellipse at 18% 16%, rgba(255,255,255,0.58), transparent 42%), radial-gradient(ellipse at 82% 78%, rgba(143,112,77,0.13), transparent 48%), linear-gradient(135deg, #e9ddc7 0%, #d8c6a8 48%, #eee5d5 100%)",
-        }}
-      />
-
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(83,65,43,0.12)_100%)]" />
-
-      <div className="absolute inset-0 opacity-[0.18] [background-image:repeating-linear-gradient(0deg,rgba(92,73,49,0.12)_0px,rgba(92,73,49,0.12)_1px,transparent_1px,transparent_5px),repeating-linear-gradient(90deg,rgba(255,255,255,0.16)_0px,rgba(255,255,255,0.16)_1px,transparent_1px,transparent_7px)]" />
-
-      <div className="absolute inset-0 bg-[#f4ecdd]/15" />
-    </div>
-  );
-}
-
-/* =========================================================
    SAVE THE DATE
    ========================================================= */
 
@@ -90,43 +69,31 @@ export function SaveTheDate() {
 
     setIsOpening(true);
 
-    /*
-     * Tell WeddingMainContent to begin revealing
-     * the Hero underneath.
-     */
     window.dispatchEvent(new CustomEvent("wedding:open-invitation"));
   };
 
   return (
     <section
       id="save-the-date"
-      aria-label="Save the date"
+      aria-label={weddingConfig.copy.saveDate.ariaLabel}
       className={`
         absolute
         inset-0
         z-30
-
         flex
         min-h-[100svh]
         items-center
         justify-center
-
         overflow-hidden
-
-        bg-[#e4d5bd]
-
-        px-3
+        bg-[#F7F3ED]
+        px-5
         py-6
-
         sm:px-8
         sm:py-8
-
         lg:px-12
-
         transition-all
         duration-[1100ms]
         ease-[cubic-bezier(0.22,1,0.36,1)]
-
         ${
           isOpening
             ? "pointer-events-none scale-[1.018] opacity-0"
@@ -136,11 +103,62 @@ export function SaveTheDate() {
     >
       {/* =====================================================
           BACKGROUND
+          Same beige tone as Couple section
+          No decorative frame
           ===================================================== */}
 
-      <div className="absolute inset-0 bg-[#e4d5bd]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[#F7F3ED]"
+      />
 
-      <BackgroundImage />
+      {/* Very subtle warm tonal variation */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          bg-[radial-gradient(
+            ellipse_at_20%_10%,
+            rgba(255,255,255,0.72),
+            transparent_42%
+          )]
+        "
+      />
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          bg-[radial-gradient(
+            ellipse_at_85%_90%,
+            rgba(200,144,167,0.06),
+            transparent_38%
+          )]
+        "
+      />
+
+      {/* Subtle edge depth */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          bg-[radial-gradient(
+            circle_at_center,
+            transparent_55%,
+            rgba(70,55,45,0.07)_100%
+          )]
+        "
+      />
+
+      {/* Paper grain */}
 
       <div
         className="
@@ -149,8 +167,9 @@ export function SaveTheDate() {
           absolute
           inset-0
           z-[1]
-          opacity-[0.055]
+          opacity-[0.045]
         "
+        aria-hidden="true"
       />
 
       {/* =====================================================
@@ -163,59 +182,16 @@ export function SaveTheDate() {
           pointer-events-none
           absolute
           z-[7]
-
           h-[min(790px,calc(100svh-3rem))]
-          w-[calc(100vw-2.75rem)]
-          max-w-[560px]
-
+          w-[calc(100vw-3rem)]
+          max-w-[540px]
           translate-y-5
-          scale-[0.985]
-
-          rounded-[3px]
-
-          bg-[#30352B]/20
-
-          blur-[22px]
-
-          sm:h-[min(920px,calc(100svh-4rem))]
+          bg-[#47372F]/18
+          blur-[20px]
+          sm:h-[min(900px,calc(100svh-4rem))]
           sm:w-[calc(100%-4rem)]
-
           sm:translate-y-6
-          sm:blur-[28px]
-
-          transition-all
-          duration-700
-        "
-      />
-
-      {/* =====================================================
-          CONTACT SHADOW
-          ===================================================== */}
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          z-[8]
-
-          h-[min(790px,calc(100svh-3rem))]
-          w-[calc(100vw-2.75rem)]
-          max-w-[560px]
-
-          translate-y-3
-          scale-[0.995]
-
-          rounded-[2px]
-
-          bg-[#30352B]/12
-
-          blur-[8px]
-
-          sm:h-[min(920px,calc(100svh-4rem))]
-          sm:w-[calc(100%-4rem)]
-
-          sm:translate-y-4
+          sm:blur-[25px]
         "
       />
 
@@ -227,28 +203,20 @@ export function SaveTheDate() {
         className={`
           relative
           z-10
-
           h-[min(790px,calc(100svh-3rem))]
-          w-[calc(100vw-2.75rem)]
-          max-w-[560px]
-
+          w-[calc(100vw-3rem)]
+          max-w-[540px]
           overflow-hidden
           rounded-[2px]
-
-          bg-[#e9e5db]
-
-          shadow-[0_4px_6px_rgba(48,53,43,0.10),0_12px_25px_rgba(48,53,43,0.13),0_28px_55px_rgba(48,53,43,0.17),0_45px_90px_rgba(48,53,43,0.12)]
-
+          bg-[#E7E1D8]
+          shadow-[0_6px_12px_rgba(60,45,38,0.10),0_18px_38px_rgba(60,45,38,0.13),0_30px_70px_rgba(60,45,38,0.12)]
           ring-1
-          ring-[#F8F4EA]/40
-
+          ring-[#FFFFFF]/45
           transition-all
           duration-[900ms]
           ease-[cubic-bezier(0.22,1,0.36,1)]
-
-          sm:h-[min(920px,calc(100svh-4rem))]
+          sm:h-[min(900px,calc(100svh-4rem))]
           sm:w-full
-
           ${
             isOpening
               ? "-translate-y-10 scale-[1.025] opacity-0"
@@ -256,7 +224,10 @@ export function SaveTheDate() {
           }
         `}
       >
-        {/* Paper edge */}
+        {/* ===================================================
+            CARD EDGE
+            This remains unchanged
+            =================================================== */}
 
         <div
           aria-hidden="true"
@@ -265,30 +236,32 @@ export function SaveTheDate() {
             absolute
             inset-0
             z-[3]
-
             border
-            border-white/10
-
-            shadow-[inset_0_0_0_1px_rgba(48,53,43,0.06)]
+            border-white/20
+            shadow-[inset_0_0_0_1px_rgba(70,55,45,0.08)]
           "
         />
 
-        {/* Couple image */}
+        {/* ===================================================
+            COUPLE IMAGE
+            =================================================== */}
 
         <Image
-          src="/images/couple-holding-hands.png"
-          alt="A couple holding hands by the sea"
+          src={weddingConfig.assets.invitation}
+          alt={weddingConfig.copy.saveDate.invitationAlt}
           fill
           priority
-          sizes="(max-width: 640px) calc(100vw - 44px), 560px"
-          className="object-cover object-center"
+          quality={72}
+          sizes="(max-width: 640px) calc(100vw - 48px), 540px"
+          className="
+            object-cover
+            object-center
+          "
         />
 
-        {/* Uniform overlay */}
-
-        <div className="absolute inset-0 bg-[#30352B]/45" />
-
-        {/* Vignette */}
+        {/* ===================================================
+            PHOTO TREATMENT
+            =================================================== */}
 
         <div
           aria-hidden="true"
@@ -296,36 +269,83 @@ export function SaveTheDate() {
             pointer-events-none
             absolute
             inset-0
-            bg-[radial-gradient(circle_at_center,transparent_35%,rgba(20,24,19,0.18)_100%)]
+            bg-[#30352B]/32
           "
         />
 
-        {/* =====================================================
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            inset-0
+            bg-[linear-gradient(
+              180deg,
+              rgba(25,29,24,0.46)_0%,
+              rgba(25,29,24,0.10)_30%,
+              rgba(25,29,24,0.04)_48%,
+              rgba(25,29,24,0.16)_66%,
+              rgba(20,24,20,0.62)_100%
+            )]
+          "
+        />
+
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            inset-0
+            bg-[radial-gradient(
+              circle_at_center,
+              transparent_38%,
+              rgba(20,24,20,0.20)_100%
+            )]
+          "
+        />
+
+        {/* ===================================================
+            INNER CARD PHOTO FRAME
+            This remains unchanged
+            =================================================== */}
+
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            inset-[10px]
+            z-[3]
+            border
+            border-white/20
+            sm:inset-[12px]
+          "
+        />
+
+        {/* ===================================================
             CONTENT
-            ===================================================== */}
+            =================================================== */}
 
         <div
           className="
             absolute
             inset-0
             z-[4]
-
             flex
             flex-col
             justify-between
-
-            p-6
-
+            p-7
             text-[#F8F4EA]
-
             sm:p-10
           "
         >
-          {/* Header */}
+          {/* =================================================
+              HEADER
+              ================================================= */}
 
           <header className="flex items-start justify-between">
             <div className="flex items-center gap-3">
-              <span className="h-px w-6 bg-current/60 sm:w-7" />
+              <span className="h-px w-6 bg-white/60 sm:w-8" />
 
               <span
                 className="
@@ -333,39 +353,40 @@ export function SaveTheDate() {
                   text-[8px]
                   font-medium
                   uppercase
-                  tracking-[0.3em]
-
+                  tracking-[0.34em]
+                  text-white/85
                   sm:text-[9px]
-                  sm:tracking-[0.32em]
                 "
               >
-                Wedding invitation
+                {weddingConfig.copy.saveDate.header}
               </span>
             </div>
 
-            <div
-              className="
-                font-display
-                text-lg
+            <span
+              className={`
+                ${cormorant.className}
+                text-[17px]
                 italic
                 leading-none
-                opacity-90
-
-                sm:text-xl
-              "
+                tracking-[0.08em]
+                text-white/80
+                sm:text-[19px]
+              `}
             >
               L&nbsp;&nbsp;·&nbsp;&nbsp;A
-            </div>
+            </span>
           </header>
 
-          {/* Main */}
+          {/* =================================================
+              MAIN CONTENT
+              ================================================= */}
 
           <div
             className="
               mx-auto
               flex
               w-full
-              max-w-[420px]
+              max-w-[430px]
               flex-1
               flex-col
               items-center
@@ -373,256 +394,252 @@ export function SaveTheDate() {
               text-center
             "
           >
+            {/* Eyebrow */}
+
+            <div className="flex items-center gap-3">
+              <span className="h-px w-6 bg-white/50" />
+
+              <p
+                className="
+                  font-sans
+                  text-[8px]
+                  font-medium
+                  uppercase
+                  tracking-[0.4em]
+                  text-white/85
+                  sm:text-[9px]
+                "
+              >
+                {invitation.eyebrow}
+              </p>
+
+              <span className="h-px w-6 bg-white/50" />
+            </div>
+
+            {/* Small editorial label */}
+
             <p
               className="
+                mt-6
                 font-sans
-                text-[9px]
+                text-[7px]
                 font-medium
                 uppercase
                 tracking-[0.38em]
-
-                text-[#F0EBE0]
-
-                drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]
-
-                sm:text-[10px]
-                sm:tracking-[0.42em]
+                text-[#D7DECB]/75
               "
             >
-              {invitation.eyebrow}
+              A new chapter begins
             </p>
 
-            <div
-              className="
-                my-4
-                h-px
-                w-10
-                bg-[#E8E2D5]/75
+            {/* =================================================
+                NAMES
+                ================================================= */}
 
-                sm:my-5
-                sm:w-12
-              "
-            />
-
-            {/* Names */}
-
-            <div
-              className={`
-                ${allura.className}
-
-                flex
-                w-full
-                flex-col
-                items-center
-
-                text-[#F8F4EA]
-
-                drop-shadow-[0_3px_14px_rgba(0,0,0,0.5)]
-              `}
-            >
+            <div className="mt-5 flex w-full flex-col items-center">
               <div
-                className="
-                  flex
-                  w-full
-                  justify-center
-                  overflow-visible
-
+                className={`
+                  ${allura.className}
                   whitespace-nowrap
-
-                  text-[clamp(3.7rem,17vw,7.8rem)]
-                  leading-[0.78]
-                "
+                  text-[clamp(3.8rem,16vw,7.1rem)]
+                  leading-[0.76]
+                  tracking-[-0.02em]
+                  text-[#FFF9F1]
+                  drop-shadow-[0_4px_16px_rgba(0,0,0,0.48)]
+                `}
               >
-                Loyed
+                {weddingConfig.couple.firstName}
               </div>
 
               <div
-                className="
-                  flex
-                  h-[clamp(2.8rem,9vw,4rem)]
-                  w-full
-                  items-center
-                  justify-center
-
-                  text-[clamp(2rem,8vw,3.2rem)]
+                className={`
+                  ${cormorant.className}
+                  my-3
+                  text-[21px]
+                  font-normal
+                  italic
                   leading-none
-
-                  opacity-90
-                "
+                  text-[#E5D7D4]
+                  sm:my-4
+                  sm:text-[25px]
+                `}
               >
                 &amp;
               </div>
 
               <div
-                className="
-                  flex
-                  w-full
-                  justify-center
-                  overflow-visible
-
+                className={`
+                  ${allura.className}
                   whitespace-nowrap
-
-                  text-[clamp(3.7rem,17vw,7.8rem)]
-                  leading-[0.78]
-                "
+                  text-[clamp(3.8rem,16vw,7.1rem)]
+                  leading-[0.76]
+                  tracking-[-0.02em]
+                  text-[#FFF9F1]
+                  drop-shadow-[0_4px_16px_rgba(0,0,0,0.48)]
+                `}
               >
-                Aneena
+                {weddingConfig.couple.secondName}
               </div>
+            </div>
+
+            {/* Editorial divider */}
+
+            <div className="mt-7 flex items-center gap-3 sm:mt-8">
+              <span className="h-px w-7 bg-[#D7DECB]/55" />
+              <span className="h-1 w-1 rounded-full bg-[#C890A7]" />
+              <span className="h-px w-7 bg-[#D7DECB]/55" />
             </div>
 
             {/* Message */}
 
             <p
-              className="
-                mt-7
-                max-w-[260px]
-
-                font-display
-                text-sm
+              className={`
+                ${cormorant.className}
+                mt-6
+                max-w-[310px]
+                text-[17px]
+                font-normal
                 italic
-                leading-relaxed
-
-                text-[#F0EBE0]
-
-                drop-shadow-[0_2px_9px_rgba(0,0,0,0.5)]
-
-                sm:mt-8
-                sm:max-w-[290px]
-                sm:text-lg
-              "
+                leading-[1.45]
+                text-[#F4EFE5]/95
+                drop-shadow-[0_2px_10px_rgba(0,0,0,0.48)]
+                sm:mt-7
+                sm:max-w-[350px]
+                sm:text-[19px]
+              `}
             >
               {invitation.message}
             </p>
 
-            {/* Date */}
+            {/* =================================================
+                DATE
+                ================================================= */}
 
             <div
               className="
-                mt-6
+                mt-7
                 flex
                 flex-col
                 items-center
-
-                sm:mt-8
+                sm:mt-9
               "
             >
               <p
                 className="
                   font-sans
-                  text-[12px]
-                  font-semibold
+                  text-[11px]
+                  font-medium
                   uppercase
-                  tracking-[0.28em]
-
-                  text-[#F7F1E6]
-
-                  drop-shadow-[0_2px_9px_rgba(0,0,0,0.5)]
-
-                  sm:text-[10px]
-                  sm:tracking-[0.4em]
+                  tracking-[0.34em]
+                  text-[#FFF8ED]
+                  drop-shadow-[0_2px_8px_rgba(0,0,0,0.48)]
+                  sm:text-[12px]
+                  sm:tracking-[0.38em]
                 "
               >
-                {invitation.date}
+                {weddingConfig.date.display}
               </p>
 
               <p
-                className="
-                  mt-2
-
-                  font-display
-                  text-base
+                className={`
+                  ${cormorant.className}
+                  mt-1.5
+                  text-[17px]
                   italic
-
-                  text-[#F4EFE5]
-
+                  text-[#F0E9DE]/95
                   drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
-
-                  sm:text-xl
-                "
+                  sm:text-[20px]
+                `}
               >
                 {invitation.weekday}
               </p>
 
-              <p
-                className="
-                  mt-1
+              <div className="mt-2 flex items-center gap-3">
+                <span className="h-px w-5 bg-[#D7DECB]/45" />
 
-                  font-sans
-                  text-[7px]
-                  uppercase
-                  tracking-[0.28em]
+                <p
+                  className="
+                    font-sans
+                    text-[7px]
+                    font-medium
+                    uppercase
+                    tracking-[0.32em]
+                    text-[#E8E2D5]/85
+                    drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
+                    sm:text-[8px]
+                  "
+                >
+                  {invitation.location}
+                </p>
 
-                  text-[#E8E2D5]/90
-
-                  drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
-
-                  sm:text-[9px]
-                  sm:tracking-[0.3em]
-                "
-              >
-                {invitation.location}
-              </p>
+                <span className="h-px w-5 bg-[#D7DECB]/45" />
+              </div>
 
               <div
                 className="mt-4 text-[#E8E2D5] sm:mt-5"
-                aria-label="Wedding rings"
+                aria-label={weddingConfig.copy.saveDate.ringsAriaLabel}
               >
                 <WeddingRings />
               </div>
             </div>
           </div>
 
-          {/* Footer */}
+          {/* =================================================
+              FOOTER
+              ================================================= */}
 
           <footer className="flex flex-col items-center gap-3 sm:gap-4">
             <button
               type="button"
               onClick={openInvitation}
               disabled={isOpening}
-              aria-label="Open invitation"
+              aria-label={weddingConfig.copy.saveDate.openButtonAriaLabel}
               className="
+                group
+                relative
                 min-w-[175px]
-
+                overflow-hidden
                 border
                 border-[#F0EBE0]/80
-
                 bg-[#30352B]/15
-
-                px-6
-                py-3
-
+                px-7
+                py-3.5
                 font-sans
                 text-[8px]
                 font-semibold
                 uppercase
-                tracking-[0.3em]
-
+                tracking-[0.32em]
                 text-[#F8F4EA]
-
-                shadow-[0_8px_30px_rgba(0,0,0,0.12)]
-
-                backdrop-blur-[4px]
-
+                shadow-[0_8px_24px_rgba(0,0,0,0.14)]
                 transition-all
                 duration-300
-
                 hover:bg-[#F0EBE0]
                 hover:text-[#30352B]
-
                 focus-visible:outline-none
                 focus-visible:ring-2
                 focus-visible:ring-[#F0EBE0]
-
                 disabled:cursor-default
-
-                sm:min-w-[184px]
-                sm:px-7
-                sm:py-3.5
+                sm:min-w-[185px]
                 sm:text-[9px]
-                sm:tracking-[0.34em]
               "
             >
-              Open invitation
+              <span
+                aria-hidden="true"
+                className="
+                  absolute
+                  inset-y-0
+                  left-0
+                  w-0
+                  bg-[#F0EBE0]
+                  transition-all
+                  duration-300
+                  group-hover:w-full
+                "
+              />
+
+              <span className="relative z-10">
+                {weddingConfig.copy.saveDate.openButton}
+              </span>
             </button>
 
             <span
@@ -630,15 +647,12 @@ export function SaveTheDate() {
                 font-sans
                 text-[7px]
                 uppercase
-                tracking-[0.25em]
-
+                tracking-[0.27em]
                 text-[#F0EBE0]/65
-
                 sm:text-[8px]
-                sm:tracking-[0.28em]
               "
             >
-              A little beginning
+              {weddingConfig.copy.saveDate.tagline}
             </span>
           </footer>
         </div>
@@ -646,3 +660,5 @@ export function SaveTheDate() {
     </section>
   );
 }
+
+export default SaveTheDate;

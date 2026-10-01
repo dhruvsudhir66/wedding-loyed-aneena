@@ -38,8 +38,12 @@ a {
   background-image:
     radial-gradient(rgba(239, 234, 220, 0.09) 0.55px, transparent 0.55px),
     radial-gradient(rgba(0, 0, 0, 0.08) 0.5px, transparent 0.5px);
-  background-position: 0 0, 7px 9px;
-  background-size: 13px 13px, 17px 17px;
+  background-position:
+    0 0,
+    7px 9px;
+  background-size:
+    13px 13px,
+    17px 17px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -53,5 +57,47 @@ a {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* =========================================================
+   KINETIC WEDDING MARQUEE
+========================================================= */
+
+.marquee-top-track {
+  animation: marqueeTop 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-bottom-track {
+  animation: marqueeBottom 34s linear infinite;
+  will-change: transform;
+}
+
+@keyframes marqueeTop {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marqueeBottom {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-top-track,
+  .marquee-bottom-track {
+    animation: none;
+    transform: translate3d(0, 0, 0);
   }
 }

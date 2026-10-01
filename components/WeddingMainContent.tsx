@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Hero } from "./Hero";
+import Hero from "./Hero";
+import Countdown from "./Countdown";
+import MeetTheBride from "./MeetTheBride";
+import MeetTheGroom from "./MeetTheGroom";
+import OurStory from "./OurStory";
+import Marquee from "./Marquee";
+import Gallery from "./Gallery";
+import Venue from "./Venue";
+import Footer from "./Footer";
 
 export function WeddingMainContent() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +48,14 @@ export function WeddingMainContent() {
       `}
     >
       <Hero />
-
+      <Countdown />
+      <MeetTheBride />
+      <MeetTheGroom />
+      {/* <Marquee /> */}
+      <OurStory />
+      <Gallery />
+      <Venue />
+      <Footer />
       {/* Future sections go here */}
     </main>
   );
