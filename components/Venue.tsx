@@ -1,7 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+
+import RSVPModal from "./RSVPModal";
+import CalendarModal from "./CalendarModal";
+import InvitationModal from "./InvitationModal";
+import PhotoCaptureModal from "./PhotoCaptureModal";
+
+/* =========================================================
+   VENUE DATA
+========================================================= */
 
 const weddingDetails = {
   couple: "Loyed & Aneena",
@@ -41,11 +50,24 @@ const weddingDetails = {
 
   palette: {
     title: "Colors of the wedding",
+
     colors: [
-      { name: "Sand", hex: "#C9BEA7" },
-      { name: "Stone", hex: "#D8D4C8" },
-      { name: "Sage", hex: "#A3B18A" },
-      { name: "Olive", hex: "#59674D" },
+      {
+        name: "Sand",
+        hex: "#C9BEA7",
+      },
+      {
+        name: "Stone",
+        hex: "#D8D4C8",
+      },
+      {
+        name: "Sage",
+        hex: "#A3B18A",
+      },
+      {
+        name: "Olive",
+        hex: "#59674D",
+      },
     ],
   },
 
@@ -59,6 +81,10 @@ const weddingDetails = {
     durationHours: 2,
   },
 };
+
+/* =========================================================
+   ICONS
+========================================================= */
 
 function PinIcon({ size = 14 }: { size?: number }) {
   return (
@@ -177,21 +203,26 @@ function ArrowIcon({ size = 9 }: { size?: number }) {
   );
 }
 
+/* =========================================================
+   CALENDAR FILE
+========================================================= */
+
 function createCalendarFile() {
   const { year, month, day, hour, minute, durationHours } =
     weddingDetails.calendar;
 
   const start = new Date(year, month - 1, day, hour, minute, 0);
+
   const end = new Date(start.getTime() + durationHours * 60 * 60 * 1000);
 
   const pad = (value: number) => String(value).padStart(2, "0");
 
   const formatDate = (date: Date) =>
-    `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(
-      date.getDate(),
-    )}T${pad(date.getHours())}${pad(date.getMinutes())}${pad(
-      date.getSeconds(),
-    )}`;
+    `${date.getFullYear()}${pad(
+      date.getMonth() + 1,
+    )}${pad(date.getDate())}T${pad(
+      date.getHours(),
+    )}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
 
   const escapeICS = (value: string) =>
     value
@@ -242,6 +273,10 @@ function createCalendarFile() {
   URL.revokeObjectURL(url);
 }
 
+/* =========================================================
+   EVENT ITEM
+========================================================= */
+
 function EventItem({
   number,
   label,
@@ -264,17 +299,27 @@ function EventItem({
   const accentColor = accent === "mauve" ? "#A87E8E" : "#59674D";
 
   return (
-    <div className="px-4 py-4 sm:px-5 sm:py-5">
+    <div className="px-4 py-5 sm:px-5 sm:py-6">
+      {/* Event label */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="font-mono text-[7px]" style={{ color: accentColor }}>
+        <div className="flex items-center gap-2.5">
+          <span
+            className="font-mono text-[8px] font-medium"
+            style={{ color: accentColor }}
+          >
             {number}
           </span>
 
-          <span className="h-px w-3 bg-[#30352B]/18" />
+          <span className="h-px w-4 bg-[#30352B]/22" />
 
           <span
-            className="font-sans text-[7px] font-medium uppercase tracking-[0.18em]"
+            className="
+              font-sans
+              text-[8px]
+              font-semibold
+              uppercase
+              tracking-[0.18em]
+            "
             style={{ color: accentColor }}
           >
             {label}
@@ -287,27 +332,41 @@ function EventItem({
         />
       </div>
 
-      <h3 className="mt-3.5 font-display text-[1.55rem] font-medium leading-[0.9] tracking-[-0.025em] text-[#30352B] sm:text-[1.8rem]">
+      {/* Event title */}
+      <h3
+        className="
+          mt-4
+          font-display
+          text-[1.7rem]
+          font-medium
+          leading-[0.9]
+          tracking-[-0.025em]
+          text-[#30352B]
+          sm:text-[1.95rem]
+        "
+      >
         {title}
       </h3>
 
-      <div className="mt-2.5 flex items-baseline gap-2.5">
-        <span className="font-display text-[1.3rem] leading-none text-[#30352B] sm:text-[1.5rem]">
+      {/* Time */}
+      <div className="mt-3 flex items-baseline gap-2.5">
+        <span className="font-display text-[1.4rem] font-medium leading-none text-[#30352B] sm:text-[1.6rem]">
           {time}
         </span>
 
-        <span className="font-mono text-[6px] font-medium uppercase tracking-[0.11em] text-[#30352B]/58">
+        <span className="font-mono text-[7px] font-medium uppercase tracking-[0.11em] text-[#30352B]/68">
           {note}
         </span>
       </div>
 
-      <div className="mt-3 flex items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-1.5">
+      {/* Venue / map */}
+      <div className="mt-4 flex items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-2">
           <span style={{ color: accentColor }}>
-            <PinIcon size={11} />
+            <PinIcon size={12} />
           </span>
 
-          <span className="truncate font-sans text-[7px] font-medium uppercase tracking-[0.1em] text-[#30352B]/70">
+          <span className="truncate font-sans text-[8px] font-semibold uppercase tracking-[0.1em] text-[#30352B]/78">
             {venue}
           </span>
         </div>
@@ -316,7 +375,21 @@ function EventItem({
           href={mapUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center gap-1 border-b pb-0.5 font-sans text-[6px] font-medium uppercase tracking-[0.13em] transition-opacity hover:opacity-60"
+          className="
+            inline-flex
+            shrink-0
+            items-center
+            gap-1
+            border-b
+            pb-0.5
+            font-sans
+            text-[7px]
+            font-semibold
+            uppercase
+            tracking-[0.13em]
+            transition-opacity
+            hover:opacity-60
+          "
           style={{
             color: accentColor,
             borderColor: `${accentColor}80`,
@@ -329,6 +402,10 @@ function EventItem({
     </div>
   );
 }
+
+/* =========================================================
+   ACTION ITEM
+========================================================= */
 
 function ActionItem({
   index,
@@ -347,7 +424,7 @@ function ActionItem({
 }) {
   const content = (
     <>
-      <span className="absolute left-3 top-2.5 font-mono text-[5px] text-[#30352B]/40 sm:left-4">
+      <span className="absolute left-3 top-2.5 font-mono text-[6px] font-medium text-[#30352B]/48 sm:left-4">
         {index}
       </span>
 
@@ -358,12 +435,23 @@ function ActionItem({
         {icon}
       </span>
 
-      <span className="mt-1.5 font-sans text-[6.5px] font-semibold uppercase tracking-[0.12em] text-[#30352B]/85 sm:text-[7px]">
+      <span className="mt-2 font-sans text-[7px] font-bold uppercase tracking-[0.12em] text-[#30352B]/90 sm:text-[8px]">
         {label}
       </span>
 
       <span
-        className="absolute bottom-0 left-1/2 h-px w-0 -translate-x-1/2 opacity-70 transition-all duration-300 group-hover:w-8"
+        className="
+          absolute
+          bottom-0
+          left-1/2
+          h-px
+          w-0
+          -translate-x-1/2
+          opacity-70
+          transition-all
+          duration-300
+          group-hover:w-8
+        "
         style={{ backgroundColor: color }}
       />
     </>
@@ -373,18 +461,19 @@ function ActionItem({
     group
     relative
     flex
-    min-h-[68px]
+    min-h-[74px]
+    flex-col
     items-center
     justify-center
-    flex-col
     border-r
-    border-[#30352B]/10
+    border-[#30352B]/12
     px-2
     py-3
     transition-colors
     duration-300
     last:border-r-0
-    hover:bg-[#F8F4EA]/45
+    hover:bg-[#F8F4EA]/55
+    sm:min-h-[80px]
   `;
 
   if (onClick) {
@@ -402,233 +491,505 @@ function ActionItem({
   );
 }
 
+/* =========================================================
+   VENUE
+========================================================= */
+
 export default function Venue() {
+  const [isRSVPOpen, setIsRSVPOpen] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isInvitationOpen, setIsInvitationOpen] = useState(false);
+  const [isPhotoOpen, setIsPhotoOpen] = useState(false);
+
   return (
-    <section
-      id="venue"
-      className="relative w-full overflow-hidden bg-[#30352B]"
-    >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1769812344259-73877d0c7bc4?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=2200')",
-        }}
-      />
+    <>
+      <section
+        id="venue"
+        className="
+          relative
+          w-full
+          overflow-hidden
+          bg-[#30352B]
+          text-[#30352B]
+        "
+      >
+        {/* ===================================================
+            BACKGROUND IMAGE
+        =================================================== */}
 
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(233,232,220,0.34)_0%,rgba(233,232,220,0.16)_30%,rgba(233,232,220,0.08)_58%,rgba(48,53,43,0.22)_100%)]"
-      />
-
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(120deg,rgba(48,53,43,0.24)_0%,rgba(48,53,43,0.06)_42%,rgba(48,53,43,0.22)_100%)]"
-      />
-
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-[25%] bg-gradient-to-t from-[#30352B]/45 to-transparent"
-      />
-
-      <div className="relative z-10 px-3 pb-7 pt-6 sm:px-5 sm:pb-8 sm:pt-8 lg:px-8 lg:pb-10 lg:pt-10">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.14 }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto w-full max-w-[900px]"
-        >
-          <div className="mb-2.5 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="font-display text-[15px] text-[#F8F4EA]">
-                07
-              </span>
-
-              <span className="h-px w-5 bg-[#F8F4EA]/55" />
-
-              <span className="font-sans text-[7px] font-medium uppercase tracking-[0.23em] text-[#F8F4EA]/90">
-                Where we meet
-              </span>
-            </div>
-
-            <span className="hidden font-mono text-[6px] text-[#F8F4EA]/65 sm:block">
-              LOYED &amp; ANEENA
-            </span>
-          </div>
-
-          <div className="overflow-hidden rounded-[16px] border border-[#F8F4EA]/42 bg-[#F8F4EA]/92 shadow-[0_14px_35px_rgba(48,53,43,0.14)] backdrop-blur-[7px]">
-            <div className="border-b border-[#30352B]/12 px-4 py-4 sm:px-5 sm:py-5">
-              <p className="font-sans text-[7px] font-semibold uppercase tracking-[0.2em] text-[#59674D]">
-                The day
-              </p>
-
-              <div className="mt-1.5 flex items-end justify-between">
-                <div>
-                  <h2 className="font-display text-[2.55rem] font-medium leading-[0.82] tracking-[-0.045em] text-[#30352B] sm:text-[3.4rem]">
-                    {weddingDetails.date.day}{" "}
-                    <span className="italic">{weddingDetails.date.month}</span>
-                  </h2>
-
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="h-px w-5 bg-[#A87E8E]/65" />
-
-                    <span className="font-mono text-[6px] text-[#30352B]/58">
-                      {weddingDetails.date.weekday} · {weddingDetails.date.year}
-                    </span>
-                  </div>
-                </div>
-
-                <span className="h-1.5 w-1.5 rounded-full bg-[#A87E8E]/70" />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2">
-              <div className="border-b border-[#30352B]/12 md:border-b-0 md:border-r">
-                <EventItem
-                  number="01"
-                  label={weddingDetails.events.church.label}
-                  title={weddingDetails.events.church.title}
-                  time={weddingDetails.events.church.time}
-                  note={weddingDetails.events.church.note}
-                  venue={weddingDetails.events.church.venue}
-                  mapUrl={weddingDetails.events.church.mapUrl}
-                  accent="sage"
-                />
-              </div>
-
-              <EventItem
-                number="02"
-                label={weddingDetails.events.reception.label}
-                title={weddingDetails.events.reception.title}
-                time={weddingDetails.events.reception.time}
-                note={weddingDetails.events.reception.note}
-                venue={weddingDetails.events.reception.venue}
-                mapUrl={weddingDetails.events.reception.mapUrl}
-                accent="mauve"
-              />
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.12 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.06,
-            ease: [0.22, 1, 0.36, 1],
+        <div
+          aria-hidden="true"
+          className="
+            absolute
+            inset-0
+            scale-[1.03]
+            bg-cover
+            bg-center
+            saturate-[0.55]
+            brightness-[0.68]
+            contrast-[1.02]
+          "
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1769812344259-73877d0c7bc4?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=85&w=2200')",
           }}
-          className="mx-auto mt-4 w-full max-w-[620px]"
-        >
-          <div className="rounded-[14px] border border-[#F8F4EA]/40 bg-[#F8F4EA]/88 px-4 py-3.5 shadow-[0_8px_24px_rgba(48,53,43,0.09)]">
-            <div className="flex items-center gap-2">
-              <span className="font-display text-[15px] text-[#59674D]">
-                08
-              </span>
+        />
 
-              <span className="h-px w-5 bg-[#59674D]/35" />
+        {/* ===================================================
+            CINEMATIC BASE TREATMENT
+        =================================================== */}
 
-              <span className="font-sans text-[7px] font-medium uppercase tracking-[0.23em] text-[#59674D]">
-                Colour palette
-              </span>
-            </div>
+        <div
+          aria-hidden="true"
+          className="
+            absolute
+            inset-0
+            bg-[#30352B]/28
+            mix-blend-multiply
+          "
+        />
 
-            <h2 className="mt-2 font-display text-[1.3rem] leading-none text-[#30352B] sm:text-[1.55rem]">
-              {weddingDetails.palette.title}
-            </h2>
+        {/* Top / bottom readability gradient */}
+        <div
+          aria-hidden="true"
+          className="
+            absolute
+            inset-0
+            bg-[linear-gradient(
+              180deg,
+              rgba(25,31,25,0.76)_0%,
+              rgba(48,53,43,0.42)_18%,
+              rgba(89,103,77,0.10)_38%,
+              rgba(48,53,43,0.20)_60%,
+              rgba(27,33,27,0.72)_100%
+            )]
+          "
+        />
 
-            <div className="mt-3.5 flex justify-center gap-5 sm:justify-start sm:gap-7">
-              {weddingDetails.palette.colors.map((color) => (
-                <div key={color.hex} className="flex flex-col items-center">
-                  <span
-                    className="h-7 w-7 rounded-full border border-[#30352B]/12 sm:h-8 sm:w-8"
-                    style={{ backgroundColor: color.hex }}
-                  />
+        {/* Center readability zone */}
+        <div
+          aria-hidden="true"
+          className="
+            absolute
+            inset-0
+            bg-[radial-gradient(
+              ellipse_at_50%_48%,
+              rgba(248,244,234,0.13)_0%,
+              rgba(89,103,77,0.10)_22%,
+              rgba(48,53,43,0.16)_44%,
+              rgba(24,30,24,0.30)_76%,
+              rgba(18,24,18,0.44)_100%
+            )]
+          "
+        />
 
-                  <span className="mt-1 font-sans text-[6px] font-semibold uppercase tracking-[0.11em] text-[#30352B]/70">
-                    {color.name}
-                  </span>
+        {/* Stronger protection behind lower content */}
+        <div
+          aria-hidden="true"
+          className="
+            absolute
+            inset-x-0
+            bottom-0
+            h-[52%]
+            bg-[linear-gradient(
+              180deg,
+              transparent_0%,
+              rgba(32,38,31,0.12)_22%,
+              rgba(27,33,27,0.42)_55%,
+              rgba(19,25,19,0.78)_100%
+            )]
+          "
+        />
 
-                  <span className="mt-0.5 font-mono text-[5.5px] text-[#30352B]/48">
-                    {color.hex}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+        {/* Top vignette */}
+        <div
+          aria-hidden="true"
+          className="
+            absolute
+            inset-x-0
+            top-0
+            h-[24%]
+            bg-[linear-gradient(
+              180deg,
+              rgba(18,24,18,0.54)_0%,
+              rgba(18,24,18,0.18)_60%,
+              transparent_100%
+            )]
+          "
+        />
 
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.12 }}
-          transition={{
-            duration: 0.75,
-            delay: 0.1,
-            ease: [0.22, 1, 0.36, 1],
+        {/* Outer vignette */}
+        <div
+          aria-hidden="true"
+          className="
+            absolute
+            inset-0
+            bg-[radial-gradient(
+              ellipse_at_center,
+              transparent_32%,
+              rgba(15,21,15,0.13)_60%,
+              rgba(12,18,12,0.42)_100%
+            )]
+          "
+        />
+
+        {/* Warm central lift */}
+        <div
+          aria-hidden="true"
+          className="
+            absolute
+            left-1/2
+            top-[48%]
+            h-[58%]
+            w-[72%]
+            -translate-x-1/2
+            -translate-y-1/2
+            rounded-full
+            bg-[#F8F4EA]/[0.045]
+            blur-[100px]
+          "
+        />
+
+        {/* ===================================================
+            SUBTLE TEXTURE
+        =================================================== */}
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.018]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, #F8F4EA 0.5px, transparent 0.5px)",
+            backgroundSize: "15px 15px",
           }}
-          className="mx-auto mt-4 w-full max-w-[900px]"
-        >
-          <div className="overflow-hidden rounded-[16px] border border-[#F8F4EA]/40 bg-[#F8F4EA]/88">
-            <div className="flex items-center justify-between border-b border-[#30352B]/10 px-4 py-2.5">
-              <span className="font-sans text-[7px] font-semibold uppercase tracking-[0.18em] text-[#59674D]/80">
-                Details
-              </span>
+        />
 
-              <span className="font-mono text-[6px] text-[#30352B]/42">
+        {/* ===================================================
+            CONTENT
+        =================================================== */}
+
+        <div className="relative z-10 px-3 pb-8 pt-7 sm:px-5 sm:pb-10 sm:pt-9 lg:px-8 lg:pb-12 lg:pt-11">
+          {/* =================================================
+              MAIN EVENT CARD
+          ================================================= */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 24,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.14,
+            }}
+            transition={{
+              duration: 0.85,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mx-auto w-full max-w-[900px]"
+          >
+            {/* Section header */}
+            <div className="mb-3 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span className="font-display text-[16px] leading-none text-[#F8F4EA] drop-shadow-[0_2px_8px_rgba(20,25,20,0.3)]">
+                  07
+                </span>
+
+                <span className="h-px w-6 bg-[#F8F4EA]/65" />
+
+                <span className="font-sans text-[8px] font-semibold uppercase tracking-[0.23em] text-[#F8F4EA]/95 drop-shadow-[0_2px_8px_rgba(20,25,20,0.3)]">
+                  Where we meet
+                </span>
+              </div>
+
+              <span className="hidden font-mono text-[7px] font-medium tracking-[0.12em] text-[#F8F4EA]/78 sm:block">
                 LOYED &amp; ANEENA
               </span>
             </div>
 
-            <div className="grid grid-cols-4">
-              <ActionItem
-                index="01"
-                label="RSVP"
-                href="#rsvp"
-                icon={<HeartIcon />}
-                color="#A87E8E"
-              />
+            {/* Event Card */}
+            <div
+              className="
+                overflow-hidden
+                rounded-[16px]
+                border
+                border-[#F8F4EA]/58
+                bg-[#F8F4EA]/94
+                shadow-[0_24px_60px_-24px_rgba(20,25,20,0.42)]
+                backdrop-blur-[10px]
+              "
+            >
+              {/* =================================================
+                  DATE
+              ================================================== */}
 
-              <ActionItem
-                index="02"
-                label="Calendar"
-                onClick={createCalendarFile}
-                icon={<CalendarIcon />}
-                color="#59674D"
-              />
+              <div className="border-b border-[#30352B]/12 px-4 py-4.5 sm:px-5 sm:py-5">
+                <p className="font-sans text-[8px] font-bold uppercase tracking-[0.2em] text-[#59674D]">
+                  The day
+                </p>
 
-              <ActionItem
-                index="03"
-                label="Invitation"
-                href="#hero"
-                icon={<BookIcon />}
-                color="#C8B58A"
-              />
+                <div className="mt-2 flex items-end justify-between">
+                  <div>
+                    <h2 className="font-display text-[2.7rem] font-medium leading-[0.82] tracking-[-0.045em] text-[#30352B] sm:text-[3.55rem]">
+                      {weddingDetails.date.day}{" "}
+                      <span className="italic">
+                        {weddingDetails.date.month}
+                      </span>
+                    </h2>
 
-              <ActionItem
-                index="04"
-                label="Photos"
-                href="#gallery"
-                icon={<CameraIcon />}
-                color="#59674D"
-              />
+                    <div className="mt-2.5 flex items-center gap-2.5">
+                      <span className="h-px w-6 bg-[#A87E8E]/75" />
+
+                      <span className="font-mono text-[7px] font-medium tracking-[0.1em] text-[#30352B]/68">
+                        {weddingDetails.date.weekday} ·{" "}
+                        {weddingDetails.date.year}
+                      </span>
+                    </div>
+                  </div>
+
+                  <span className="mb-1.5 h-1.5 w-1.5 rounded-full bg-[#A87E8E]/80" />
+                </div>
+              </div>
+
+              {/* =================================================
+                  EVENTS
+              ================================================== */}
+
+              <div className="grid md:grid-cols-2">
+                <div className="border-b border-[#30352B]/12 md:border-b-0 md:border-r">
+                  <EventItem
+                    number="01"
+                    label={weddingDetails.events.church.label}
+                    title={weddingDetails.events.church.title}
+                    time={weddingDetails.events.church.time}
+                    note={weddingDetails.events.church.note}
+                    venue={weddingDetails.events.church.venue}
+                    mapUrl={weddingDetails.events.church.mapUrl}
+                    accent="sage"
+                  />
+                </div>
+
+                <EventItem
+                  number="02"
+                  label={weddingDetails.events.reception.label}
+                  title={weddingDetails.events.reception.title}
+                  time={weddingDetails.events.reception.time}
+                  note={weddingDetails.events.reception.note}
+                  venue={weddingDetails.events.reception.venue}
+                  mapUrl={weddingDetails.events.reception.mapUrl}
+                  accent="mauve"
+                />
+              </div>
             </div>
+          </motion.div>
+
+          {/* =================================================
+              COLOUR PALETTE
+          ================================================== */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 22,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.12,
+            }}
+            transition={{
+              duration: 0.8,
+              delay: 0.06,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mx-auto mt-5 w-full max-w-[620px]"
+          >
+            <div
+              className="
+                rounded-[14px]
+                border
+                border-[#F8F4EA]/50
+                bg-[#F8F4EA]/93
+                px-4
+                py-4
+                shadow-[0_12px_30px_rgba(20,25,20,0.18)]
+                backdrop-blur-[8px]
+              "
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="font-display text-[16px] leading-none text-[#59674D]">
+                  08
+                </span>
+
+                <span className="h-px w-6 bg-[#59674D]/40" />
+
+                <span className="font-sans text-[8px] font-bold uppercase tracking-[0.23em] text-[#59674D]">
+                  Colour palette
+                </span>
+              </div>
+
+              <h2 className="mt-2.5 font-display text-[1.4rem] font-medium leading-none text-[#30352B] sm:text-[1.6rem]">
+                {weddingDetails.palette.title}
+              </h2>
+
+              <div className="mt-4 flex justify-center gap-5 sm:justify-start sm:gap-7">
+                {weddingDetails.palette.colors.map((color) => (
+                  <div key={color.hex} className="flex flex-col items-center">
+                    <span
+                      className="
+                        h-8
+                        w-8
+                        rounded-full
+                        border
+                        border-[#30352B]/15
+                        shadow-[0_2px_8px_rgba(48,53,43,0.12)]
+                        sm:h-9
+                        sm:w-9
+                      "
+                      style={{
+                        backgroundColor: color.hex,
+                      }}
+                    />
+
+                    <span className="mt-1.5 font-sans text-[7px] font-bold uppercase tracking-[0.11em] text-[#30352B]/78">
+                      {color.name}
+                    </span>
+
+                    <span className="mt-0.5 font-mono text-[6px] font-medium text-[#30352B]/58">
+                      {color.hex}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* =================================================
+              ACTION BAR
+          ================================================== */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 18,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.12,
+            }}
+            transition={{
+              duration: 0.75,
+              delay: 0.1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mx-auto mt-5 w-full max-w-[900px]"
+          >
+            <div
+              className="
+                overflow-hidden
+                rounded-[16px]
+                border
+                border-[#F8F4EA]/52
+                bg-[#F8F4EA]/94
+                shadow-[0_16px_36px_rgba(20,25,20,0.18)]
+                backdrop-blur-[8px]
+              "
+            >
+              {/* Action header */}
+              <div className="flex items-center justify-between border-b border-[#30352B]/11 px-4 py-3">
+                <span className="font-sans text-[8px] font-bold uppercase tracking-[0.18em] text-[#59674D]/88">
+                  Details
+                </span>
+
+                <span className="font-mono text-[7px] font-medium tracking-[0.1em] text-[#30352B]/52">
+                  LOYED &amp; ANEENA
+                </span>
+              </div>
+
+              {/* Actions */}
+              <div className="grid grid-cols-4">
+                <ActionItem
+                  index="01"
+                  label="RSVP"
+                  onClick={() => setIsRSVPOpen(true)}
+                  icon={<HeartIcon size={15} />}
+                  color="#A87E8E"
+                />
+
+                <ActionItem
+                  index="02"
+                  label="Calendar"
+                  onClick={() => setIsCalendarOpen(true)}
+                  icon={<CalendarIcon />}
+                  color="#59674D"
+                />
+
+                <ActionItem
+                  index="03"
+                  label="Invitation"
+                  onClick={() => setIsInvitationOpen(true)}
+                  icon={<BookIcon />}
+                  color="#C8B58A"
+                />
+
+                <ActionItem
+                  index="04"
+                  label="Photos"
+                  onClick={() => setIsPhotoOpen(true)}
+                  icon={<CameraIcon />}
+                  color="#59674D"
+                />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* =================================================
+              FOOTER LINE
+          ================================================== */}
+
+          <div className="mx-auto mt-5 flex w-full max-w-[900px] items-center justify-between">
+            <p className="font-display text-[14px] font-medium italic text-[#F8F4EA]/92 drop-shadow-[0_2px_10px_rgba(18,24,18,0.45)]">
+              Come comfortable. Come as you are.
+            </p>
+
+            <span className="hidden font-sans text-[8px] font-semibold uppercase tracking-[0.14em] text-[#F8F4EA]/68 sm:block">
+              LOYED &amp; ANEENA · 2026
+            </span>
           </div>
-        </motion.div>
-
-        <div className="mx-auto mt-4 flex w-full max-w-[900px] items-center justify-between">
-          <p className="font-display text-[13px] italic text-[#F8F4EA]/80">
-            Come comfortable. Come as you are.
-          </p>
-
-          <span className="hidden font-sans text-[7px] uppercase tracking-[0.14em] text-[#F8F4EA]/50 sm:block">
-            LOYED &amp; ANEENA · 2026
-          </span>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* =====================================================
+          RSVP MODAL
+      ===================================================== */}
+
+      <RSVPModal open={isRSVPOpen} onClose={() => setIsRSVPOpen(false)} />
+
+      <CalendarModal
+        open={isCalendarOpen}
+        onClose={() => setIsCalendarOpen(false)}
+      />
+
+      <InvitationModal
+        open={isInvitationOpen}
+        onClose={() => setIsInvitationOpen(false)}
+      />
+
+      <PhotoCaptureModal
+        open={isPhotoOpen}
+        onClose={() => setIsPhotoOpen(false)}
+      />
+    </>
   );
 }
