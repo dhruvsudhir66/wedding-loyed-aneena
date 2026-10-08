@@ -2,7 +2,14 @@
 
 :root {
   --olive: #30352b;
-  --paper: #e9e5db;
+  --olive-soft: #59674d;
+  --sage: #a3b18a;
+  --paper: #e9e8dc;
+  --ivory: #f8f4ea;
+  --sand: #c9bea7;
+  --stone: #d8d4c8;
+  --mauve: #a87e8e;
+  --champagne: #c8b58a;
   --ink: #252a22;
 }
 
@@ -11,17 +18,24 @@
 }
 
 html {
-  scroll-behavior: smooth;
   background: var(--olive);
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
 }
 
 body {
   margin: 0;
-  background: var(--olive);
-  color: var(--paper);
+  min-width: 320px;
+  background: var(--ivory);
+  color: var(--olive);
   font-family: var(--font-sans), Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
 }
 
 button,
@@ -29,15 +43,40 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+button {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
 ::selection {
-  background: #e9e5db;
-  color: #30352b;
+  background: var(--olive);
+  color: var(--ivory);
+}
+
+:focus-visible {
+  outline: 1px solid var(--olive-soft);
+  outline-offset: 4px;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+.font-serif {
+  font-family: var(--font-display), Georgia, serif;
 }
 
 .paper-grain {
   background-image:
     radial-gradient(rgba(239, 234, 220, 0.09) 0.55px, transparent 0.55px),
-    radial-gradient(rgba(0, 0, 0, 0.08) 0.5px, transparent 0.5px);
+    radial-gradient(rgba(0, 0, 0, 0.06) 0.5px, transparent 0.5px);
   background-position:
     0 0,
     7px 9px;
@@ -54,50 +93,9 @@ a {
   *,
   *::before,
   *::after {
-    transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-  }
-}
-
-/* =========================================================
-   KINETIC WEDDING MARQUEE
-========================================================= */
-
-.marquee-top-track {
-  animation: marqueeTop 30s linear infinite;
-  will-change: transform;
-}
-
-.marquee-bottom-track {
-  animation: marqueeBottom 34s linear infinite;
-  will-change: transform;
-}
-
-@keyframes marqueeTop {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-@keyframes marqueeBottom {
-  from {
-    transform: translate3d(-50%, 0, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-top-track,
-  .marquee-bottom-track {
-    animation: none;
-    transform: translate3d(0, 0, 0);
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

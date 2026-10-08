@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Allura, Cormorant_Garamond } from "next/font/google";
 import { weddingConfig } from "@/config/wedding";
 
@@ -24,10 +24,6 @@ const invitation = {
   location: weddingConfig.date.location,
   message: weddingConfig.copy.saveDate.message,
 };
-
-/* =========================================================
-   WEDDING RINGS
-   ========================================================= */
 
 function WeddingRings() {
   return (
@@ -57,12 +53,18 @@ function WeddingRings() {
   );
 }
 
-/* =========================================================
-   SAVE THE DATE
-   ========================================================= */
-
 export function SaveTheDate() {
   const [isOpening, setIsOpening] = useState(false);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = isOpening ? "" : "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpening]);
 
   const openInvitation = () => {
     if (isOpening) return;
@@ -77,20 +79,20 @@ export function SaveTheDate() {
       id="save-the-date"
       aria-label={weddingConfig.copy.saveDate.ariaLabel}
       className={`
-        absolute
+        fixed
         inset-0
-        z-30
+        z-[100]
         flex
-        min-h-[100svh]
+        h-[100dvh]
+        w-screen
         items-center
         justify-center
         overflow-hidden
         bg-[#F7F3ED]
-        px-5
-        py-6
-        sm:px-8
-        sm:py-8
-        lg:px-12
+        px-3
+        py-3
+        sm:px-5
+        sm:py-4
         transition-all
         duration-[1100ms]
         ease-[cubic-bezier(0.22,1,0.36,1)]
@@ -103,16 +105,12 @@ export function SaveTheDate() {
     >
       {/* =====================================================
           BACKGROUND
-          Same beige tone as Couple section
-          No decorative frame
-          ===================================================== */}
+      ===================================================== */}
 
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[#F7F3ED]"
       />
-
-      {/* Very subtle warm tonal variation */}
 
       <div
         aria-hidden="true"
@@ -142,8 +140,6 @@ export function SaveTheDate() {
         "
       />
 
-      {/* Subtle edge depth */}
-
       <div
         aria-hidden="true"
         className="
@@ -158,9 +154,8 @@ export function SaveTheDate() {
         "
       />
 
-      {/* Paper grain */}
-
       <div
+        aria-hidden="true"
         className="
           paper-grain
           pointer-events-none
@@ -169,12 +164,11 @@ export function SaveTheDate() {
           z-[1]
           opacity-[0.045]
         "
-        aria-hidden="true"
       />
 
       {/* =====================================================
-          CARD AMBIENT SHADOW
-          ===================================================== */}
+          CARD SHADOW
+      ===================================================== */}
 
       <div
         aria-hidden="true"
@@ -182,30 +176,30 @@ export function SaveTheDate() {
           pointer-events-none
           absolute
           z-[7]
-          h-[min(790px,calc(100svh-3rem))]
-          w-[calc(100vw-3rem)]
-          max-w-[540px]
-          translate-y-5
+          h-[min(760px,calc(100dvh-24px))]
+          w-[min(540px,calc(100vw-24px))]
+          translate-y-3
           bg-[#47372F]/18
           blur-[20px]
-          sm:h-[min(900px,calc(100svh-4rem))]
-          sm:w-[calc(100%-4rem)]
-          sm:translate-y-6
+          sm:h-[min(850px,calc(100dvh-32px))]
+          sm:w-[min(540px,calc(100vw-40px))]
+          sm:translate-y-5
           sm:blur-[25px]
         "
       />
 
       {/* =====================================================
           INVITATION CARD
-          ===================================================== */}
+      ===================================================== */}
 
       <div
         className={`
           relative
           z-10
-          h-[min(790px,calc(100svh-3rem))]
-          w-[calc(100vw-3rem)]
-          max-w-[540px]
+          flex
+          h-[min(760px,calc(100dvh-24px))]
+          w-[min(540px,calc(100vw-24px))]
+          shrink-0
           overflow-hidden
           rounded-[2px]
           bg-[#E7E1D8]
@@ -215,19 +209,18 @@ export function SaveTheDate() {
           transition-all
           duration-[900ms]
           ease-[cubic-bezier(0.22,1,0.36,1)]
-          sm:h-[min(900px,calc(100svh-4rem))]
-          sm:w-full
+          sm:h-[min(850px,calc(100dvh-32px))]
+          sm:w-[min(540px,calc(100vw-40px))]
           ${
             isOpening
-              ? "-translate-y-10 scale-[1.025] opacity-0"
+              ? "-translate-y-8 scale-[1.025] opacity-0"
               : "translate-y-0 scale-100 opacity-100"
           }
         `}
       >
         {/* ===================================================
             CARD EDGE
-            This remains unchanged
-            =================================================== */}
+        =================================================== */}
 
         <div
           aria-hidden="true"
@@ -243,8 +236,8 @@ export function SaveTheDate() {
         />
 
         {/* ===================================================
-            COUPLE IMAGE
-            =================================================== */}
+            PHOTO
+        =================================================== */}
 
         <Image
           src={weddingConfig.assets.invitation}
@@ -252,16 +245,13 @@ export function SaveTheDate() {
           fill
           priority
           quality={72}
-          sizes="(max-width: 640px) calc(100vw - 48px), 540px"
-          className="
-            object-cover
-            object-center
-          "
+          sizes="(max-width: 640px) calc(100vw - 24px), 540px"
+          className="object-cover object-center"
         />
 
         {/* ===================================================
             PHOTO TREATMENT
-            =================================================== */}
+        =================================================== */}
 
         <div
           aria-hidden="true"
@@ -304,10 +294,7 @@ export function SaveTheDate() {
           "
         />
 
-        {/* ===================================================
-            INNER CARD PHOTO FRAME
-            This remains unchanged
-            =================================================== */}
+        {/* Inner photo frame */}
 
         <div
           aria-hidden="true"
@@ -324,26 +311,29 @@ export function SaveTheDate() {
 
         {/* ===================================================
             CONTENT
-            =================================================== */}
+        =================================================== */}
 
         <div
           className="
-            absolute
-            inset-0
+            relative
             z-[4]
             flex
+            h-full
+            w-full
             flex-col
-            justify-between
-            p-7
+            items-center
+            px-6
+            py-6
             text-[#F8F4EA]
-            sm:p-10
+            sm:px-9
+            sm:py-8
           "
         >
           {/* =================================================
               HEADER
-              ================================================= */}
+          ================================================= */}
 
-          <header className="flex items-start justify-between">
+          <header className="flex w-full shrink-0 items-start justify-between">
             <div className="flex items-center gap-3">
               <span className="h-px w-6 bg-white/60 sm:w-8" />
 
@@ -379,14 +369,13 @@ export function SaveTheDate() {
 
           {/* =================================================
               MAIN CONTENT
-              ================================================= */}
+          ================================================= */}
 
           <div
             className="
-              mx-auto
               flex
+              min-h-0
               w-full
-              max-w-[430px]
               flex-1
               flex-col
               items-center
@@ -396,52 +385,28 @@ export function SaveTheDate() {
           >
             {/* Eyebrow */}
 
-            <div className="flex items-center gap-3">
+            <div className="flex shrink-0 items-center gap-3">
               <span className="h-px w-6 bg-white/50" />
 
-              <p
-                className="
-                  font-sans
-                  text-[8px]
-                  font-medium
-                  uppercase
-                  tracking-[0.4em]
-                  text-white/85
-                  sm:text-[9px]
-                "
-              >
+              <p className="font-sans text-[8px] font-medium uppercase tracking-[0.4em] text-white/85 sm:text-[9px]">
                 {invitation.eyebrow}
               </p>
 
               <span className="h-px w-6 bg-white/50" />
             </div>
 
-            {/* Small editorial label */}
-
-            <p
-              className="
-                mt-6
-                font-sans
-                text-[7px]
-                font-medium
-                uppercase
-                tracking-[0.38em]
-                text-[#D7DECB]/75
-              "
-            >
+            <p className="mt-3 shrink-0 font-sans text-[7px] font-medium uppercase tracking-[0.38em] text-[#D7DECB]/75 sm:mt-4">
               A new chapter begins
             </p>
 
-            {/* =================================================
-                NAMES
-                ================================================= */}
+            {/* Names */}
 
-            <div className="mt-5 flex w-full flex-col items-center">
+            <div className="mt-3 flex shrink-0 w-full flex-col items-center sm:mt-4">
               <div
                 className={`
                   ${allura.className}
                   whitespace-nowrap
-                  text-[clamp(3.8rem,16vw,7.1rem)]
+                  text-[clamp(3.6rem,15vw,7rem)]
                   leading-[0.76]
                   tracking-[-0.02em]
                   text-[#FFF9F1]
@@ -454,14 +419,14 @@ export function SaveTheDate() {
               <div
                 className={`
                   ${cormorant.className}
-                  my-3
-                  text-[21px]
+                  my-2
+                  text-[20px]
                   font-normal
                   italic
                   leading-none
                   text-[#E5D7D4]
-                  sm:my-4
-                  sm:text-[25px]
+                  sm:my-3
+                  sm:text-[24px]
                 `}
               >
                 &amp;
@@ -471,7 +436,7 @@ export function SaveTheDate() {
                 className={`
                   ${allura.className}
                   whitespace-nowrap
-                  text-[clamp(3.8rem,16vw,7.1rem)]
+                  text-[clamp(3.6rem,15vw,7rem)]
                   leading-[0.76]
                   tracking-[-0.02em]
                   text-[#FFF9F1]
@@ -482,9 +447,9 @@ export function SaveTheDate() {
               </div>
             </div>
 
-            {/* Editorial divider */}
+            {/* Divider */}
 
-            <div className="mt-7 flex items-center gap-3 sm:mt-8">
+            <div className="mt-4 flex shrink-0 items-center gap-3 sm:mt-5">
               <span className="h-px w-7 bg-[#D7DECB]/55" />
               <span className="h-1 w-1 rounded-full bg-[#C890A7]" />
               <span className="h-px w-7 bg-[#D7DECB]/55" />
@@ -495,88 +460,59 @@ export function SaveTheDate() {
             <p
               className={`
                 ${cormorant.className}
-                mt-6
-                max-w-[310px]
-                text-[17px]
+                mt-4
+                max-w-[300px]
+                shrink-0
+                text-[16px]
                 font-normal
                 italic
-                leading-[1.45]
+                leading-[1.38]
                 text-[#F4EFE5]/95
                 drop-shadow-[0_2px_10px_rgba(0,0,0,0.48)]
-                sm:mt-7
-                sm:max-w-[350px]
-                sm:text-[19px]
+                sm:mt-5
+                sm:max-w-[340px]
+                sm:text-[18px]
               `}
             >
               {invitation.message}
             </p>
 
-            {/* =================================================
-                DATE
-                ================================================= */}
+            {/* Date */}
 
-            <div
-              className="
-                mt-7
-                flex
-                flex-col
-                items-center
-                sm:mt-9
-              "
-            >
+            <div className="mt-4 flex shrink-0 flex-col items-center sm:mt-5">
               <p
                 className="
                   font-sans
-                  text-[11px]
+                  text-[10px]
                   font-medium
                   uppercase
-                  tracking-[0.34em]
+                  tracking-[0.32em]
                   text-[#FFF8ED]
                   drop-shadow-[0_2px_8px_rgba(0,0,0,0.48)]
-                  sm:text-[12px]
-                  sm:tracking-[0.38em]
+                  sm:text-[11px]
+                  sm:tracking-[0.36em]
                 "
               >
-                {weddingConfig.date.display}
+                {invitation.date}
               </p>
 
               <p
                 className={`
                   ${cormorant.className}
-                  mt-1.5
+                  mt-1
                   text-[17px]
                   italic
+                  leading-none
                   text-[#F0E9DE]/95
                   drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
-                  sm:text-[20px]
+                  sm:text-[19px]
                 `}
               >
                 {invitation.weekday}
               </p>
 
-              <div className="mt-2 flex items-center gap-3">
-                <span className="h-px w-5 bg-[#D7DECB]/45" />
-
-                <p
-                  className="
-                    font-sans
-                    text-[7px]
-                    font-medium
-                    uppercase
-                    tracking-[0.32em]
-                    text-[#E8E2D5]/85
-                    drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
-                    sm:text-[8px]
-                  "
-                >
-                  {invitation.location}
-                </p>
-
-                <span className="h-px w-5 bg-[#D7DECB]/45" />
-              </div>
-
               <div
-                className="mt-4 text-[#E8E2D5] sm:mt-5"
+                className="mt-2 text-[#E8E2D5] sm:mt-3"
                 aria-label={weddingConfig.copy.saveDate.ringsAriaLabel}
               >
                 <WeddingRings />
@@ -586,9 +522,9 @@ export function SaveTheDate() {
 
           {/* =================================================
               FOOTER
-              ================================================= */}
+          ================================================= */}
 
-          <footer className="flex flex-col items-center gap-3 sm:gap-4">
+          <footer className="flex w-full shrink-0 flex-col items-center gap-2 sm:gap-3">
             <button
               type="button"
               onClick={openInvitation}
@@ -597,13 +533,14 @@ export function SaveTheDate() {
               className="
                 group
                 relative
-                min-w-[175px]
+                min-h-10
+                min-w-[170px]
                 overflow-hidden
                 border
                 border-[#F0EBE0]/80
                 bg-[#30352B]/15
                 px-7
-                py-3.5
+                py-3
                 font-sans
                 text-[8px]
                 font-semibold
@@ -619,7 +556,7 @@ export function SaveTheDate() {
                 focus-visible:ring-2
                 focus-visible:ring-[#F0EBE0]
                 disabled:cursor-default
-                sm:min-w-[185px]
+                sm:min-w-[180px]
                 sm:text-[9px]
               "
             >
@@ -642,16 +579,7 @@ export function SaveTheDate() {
               </span>
             </button>
 
-            <span
-              className="
-                font-sans
-                text-[7px]
-                uppercase
-                tracking-[0.27em]
-                text-[#F0EBE0]/65
-                sm:text-[8px]
-              "
-            >
+            <span className="font-sans text-[7px] uppercase tracking-[0.27em] text-[#F0EBE0]/65 sm:text-[8px]">
               {weddingConfig.copy.saveDate.tagline}
             </span>
           </footer>
