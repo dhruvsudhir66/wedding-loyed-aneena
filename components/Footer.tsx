@@ -87,14 +87,14 @@ export default function Footer() {
             <span className="h-1 w-1 rounded-full bg-[#A87E8E]/45" />
 
             <a
-              href="https://instagram.com/yourcompanyhandle"
+              href="https://www.instagram.com/wyvernstack?vrfl=Z2RyejQ1Mjh1eTV1"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Wyvernstack on Instagram"
               className="inline-flex min-h-9 items-center gap-1.5 font-mono text-[9px] tracking-[0.05em] text-[#59674D]/75 transition-colors duration-300 hover:text-[#A87E8E] sm:text-[10px]"
             >
               <InstagramIcon size={13} />
-              @yourcompanyhandle
+              @wyvernstack
             </a>
           </div>
         </div>

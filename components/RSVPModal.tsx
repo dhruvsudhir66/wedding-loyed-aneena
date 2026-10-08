@@ -425,21 +425,23 @@ export default function RSVPModal({ open, onClose }: RSVPModalProps) {
 
             {/* ATTENDANCE */}
 
+            {/* ATTENDANCE */}
+
             <div>
               <p
                 className="
-                  font-sans
-                  text-[6px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.2em]
-                  text-[#59674D]
-                "
+                font-sans
+                text-[6px]
+                font-semibold
+                uppercase
+                tracking-[0.2em]
+                text-[#59674D]
+              "
               >
                 Will you attend?
               </p>
 
-              <div className="mt-1.5 grid grid-cols-2 gap-1.5">
+              <div className="mt-2 flex items-center justify-center gap-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -448,10 +450,10 @@ export default function RSVPModal({ open, onClose }: RSVPModalProps) {
                     setErrorMessage("");
                   }}
                   className={[
-                    "border px-3 py-2.5 font-sans text-[6px] font-semibold uppercase tracking-[0.13em] transition-all duration-200",
+                    "min-w-[108px] border px-3.5 py-2 font-sans text-[6px] font-semibold uppercase tracking-[0.13em] transition-all duration-200",
                     attending === "yes"
                       ? "border-[#59674D] bg-[#59674D] text-[#F8F4EA]"
-                      : "border-[#59674D]/20 text-[#59674D] hover:border-[#59674D]/45",
+                      : "border-[#59674D]/25 bg-transparent text-[#59674D] hover:border-[#59674D]/50",
                   ].join(" ")}
                 >
                   Joyfully, yes
@@ -465,10 +467,10 @@ export default function RSVPModal({ open, onClose }: RSVPModalProps) {
                     setErrorMessage("");
                   }}
                   className={[
-                    "border px-3 py-2.5 font-sans text-[6px] font-semibold uppercase tracking-[0.13em] transition-all duration-200",
+                    "min-w-[108px] border px-3.5 py-2 font-sans text-[6px] font-semibold uppercase tracking-[0.13em] transition-all duration-200",
                     attending === "no"
                       ? "border-[#A87E8E] bg-[#A87E8E] text-[#F8F4EA]"
-                      : "border-[#59674D]/20 text-[#59674D] hover:border-[#A87E8E]/45",
+                      : "border-[#59674D]/25 bg-transparent text-[#59674D] hover:border-[#A87E8E]/50",
                   ].join(" ")}
                 >
                   Regretfully, no
