@@ -385,7 +385,7 @@ export default function OurStory() {
                         drop-shadow-[0_3px_16px_rgba(20,25,20,0.28)]
                       "
                     >
-                      {brideName}
+                      {groomName}
                     </span>
 
                     <span className="font-display text-[18px] font-medium italic text-[#D8CAA9] sm:text-[19px]">
@@ -401,7 +401,7 @@ export default function OurStory() {
                         drop-shadow-[0_3px_16px_rgba(20,25,20,0.28)]
                       "
                     >
-                      {groomName}
+                      {brideName}
                     </span>
                   </div>
                 </div>

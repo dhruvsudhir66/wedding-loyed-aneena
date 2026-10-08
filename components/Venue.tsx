@@ -861,10 +861,6 @@ export default function Venue() {
                     <span className="mt-1.5 font-sans text-[7px] font-bold uppercase tracking-[0.11em] text-[#30352B]/78">
                       {color.name}
                     </span>
-
-                    <span className="mt-0.5 font-mono text-[6px] font-medium text-[#30352B]/58">
-                      {color.hex}
-                    </span>
                   </div>
                 ))}
               </div>

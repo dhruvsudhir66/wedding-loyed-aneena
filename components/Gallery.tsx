@@ -284,7 +284,7 @@ export default function Gallery() {
             <span className="h-1.5 w-1.5 rounded-full bg-[#A87E8E]/75" />
 
             <span className="font-sans text-[7px] font-semibold tracking-[0.27em] text-[#59674D]/62 sm:text-[8px]">
-              ANEENA &amp; LOYED
+              LOYED &amp; ANEENA
             </span>
           </div>
 
