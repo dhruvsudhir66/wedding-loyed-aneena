@@ -631,7 +631,7 @@ export function Countdown() {
             sm:text-[8px]
           "
         >
-          04
+          02
         </span>
 
         <span className="h-px w-7 bg-[#59674D]/30 sm:w-8" />

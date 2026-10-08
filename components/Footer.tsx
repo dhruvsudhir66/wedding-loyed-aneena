@@ -2,7 +2,7 @@
 
 import React from "react";
 
-function InstagramIcon({ size = 14 }: { size?: number }) {
+function InstagramIcon({ size = 15 }: { size?: number }) {
   return (
     <svg
       width={size}
@@ -17,7 +17,7 @@ function InstagramIcon({ size = 14 }: { size?: number }) {
     >
       <rect x="3.5" y="3.5" width="17" height="17" rx="4" />
       <circle cx="12" cy="12" r="4" />
-      <circle cx="17.4" cy="6.7" r="0.7" fill="currentColor" stroke="none" />
+      <circle cx="17.4" cy="6.7" r="0.75" fill="currentColor" stroke="none" />
     </svg>
   );
 }
@@ -25,101 +25,197 @@ function InstagramIcon({ size = 14 }: { size?: number }) {
 export default function Footer() {
   return (
     <footer className="w-full bg-[#F8F4EA] text-[#30352B]">
-      <div className="mx-auto max-w-[1200px] px-5 py-10 sm:px-8 sm:py-12 lg:px-10">
-        {/* Couple */}
-        <div className="flex flex-col items-center text-center">
-          <p className="font-sans text-[7px] font-medium uppercase tracking-[0.3em] text-[#59674D]/65">
-            Stay connected
-          </p>
+      <div className="mx-auto max-w-[1100px] px-6 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-18">
+        {/* Top editorial mark */}
+        <div className="flex items-center justify-center gap-3">
+          <span className="h-px w-8 bg-[#59674D]/25 sm:w-12" />
+          <span className="font-sans text-[9px] font-medium uppercase tracking-[0.28em] text-[#59674D]/70">
+            Until forever
+          </span>
+          <span className="h-px w-8 bg-[#59674D]/25 sm:w-12" />
+        </div>
 
-          <h2 className="mt-2 font-[family-name:var(--font-allura)] text-[2.4rem] leading-none text-[#30352B] sm:text-[2.8rem]">
+        {/* Couple */}
+        <div className="mt-8 flex flex-col items-center text-center sm:mt-10">
+          <h2
+            className="
+              font-[family-name:var(--font-allura)]
+              text-[3.2rem]
+              leading-[0.9]
+              text-[#30352B]
+              sm:text-[3.8rem]
+              lg:text-[4rem]
+            "
+          >
             Loyed & Aneena
           </h2>
+
+          <p
+            className="
+              mt-3
+              max-w-[300px]
+              font-sans
+              text-[10px]
+              leading-relaxed
+              tracking-[0.03em]
+              text-[#30352B]/60
+              sm:max-w-none
+              sm:text-[11px]
+            "
+          >
+            Thank you for being part of our story.
+          </p>
 
           <a
             href="https://instagram.com/yourcouplehandle"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Loyed and Aneena on Instagram"
             className="
-              mt-3
+              mt-5
               inline-flex
               items-center
-              gap-1.5
+              gap-2
+              border-b
+              border-[#59674D]/20
+              pb-1
               font-sans
-              text-[7px]
+              text-[9px]
+              font-medium
               uppercase
-              tracking-[0.18em]
+              tracking-[0.16em]
               text-[#59674D]
               transition-colors
+              duration-300
+              hover:border-[#A87E8E]/50
               hover:text-[#A87E8E]
-              sm:text-[8px]
+              focus-visible:outline-none
+              focus-visible:ring-1
+              focus-visible:ring-[#59674D]/40
+              sm:text-[10px]
             "
           >
-            <InstagramIcon size={13} />
-            @yourcouplehandle
+            <InstagramIcon size={14} />
+            <span>@yourcouplehandle</span>
           </a>
         </div>
 
         {/* Divider */}
-        <div className="mx-auto my-8 h-px w-full max-w-[700px] bg-[#30352B]/10 sm:my-10" />
+        <div className="mx-auto my-10 max-w-[760px] border-t border-[#30352B]/10 sm:my-12" />
 
-        {/* Company */}
-        <div className="flex flex-col items-center gap-2 text-center">
-          <p className="font-sans text-[6px] font-medium uppercase tracking-[0.22em] text-[#30352B]/45">
+        {/* Crafted by */}
+        <div className="flex flex-col items-center text-center">
+          <p
+            className="
+              font-sans
+              text-[9px]
+              font-medium
+              uppercase
+              tracking-[0.24em]
+              text-[#30352B]/50
+            "
+          >
             Website crafted by
           </p>
 
-          <p className="font-sans text-[8px] font-medium uppercase tracking-[0.18em] text-[#30352B]">
+          <p
+            className="
+              mt-2
+              font-sans
+              text-[11px]
+              font-semibold
+              uppercase
+              tracking-[0.18em]
+              text-[#30352B]
+              sm:text-[12px]
+            "
+          >
             Wyvernstack
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <a
               href="https://wyvernstack.com"
               target="_blank"
               rel="noopener noreferrer"
               className="
                 font-mono
-                text-[6px]
-                tracking-[0.08em]
-                text-[#59674D]/65
+                text-[9px]
+                tracking-[0.05em]
+                text-[#59674D]/75
                 transition-colors
+                duration-300
                 hover:text-[#A87E8E]
-                sm:text-[7px]
+                focus-visible:outline-none
+                focus-visible:ring-1
+                focus-visible:ring-[#59674D]/40
+                sm:text-[10px]
               "
             >
-              aevonsolutions.co.in
+              wyvernstack.com
             </a>
 
-            <span className="h-1 w-1 rounded-full bg-[#A87E8E]/45" />
+            <span
+              aria-hidden="true"
+              className="h-1 w-1 rounded-full bg-[#A87E8E]/45"
+            />
 
             <a
               href="https://instagram.com/yourcompanyhandle"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Wyvernstack on Instagram"
               className="
                 inline-flex
                 items-center
-                gap-1
+                gap-1.5
                 font-mono
-                text-[6px]
-                tracking-[0.08em]
-                text-[#59674D]/65
+                text-[9px]
+                tracking-[0.05em]
+                text-[#59674D]/75
                 transition-colors
+                duration-300
                 hover:text-[#A87E8E]
-                sm:text-[7px]
+                focus-visible:outline-none
+                focus-visible:ring-1
+                focus-visible:ring-[#59674D]/40
+                sm:text-[10px]
               "
             >
-              <InstagramIcon size={11} />
+              <InstagramIcon size={13} />
               @yourcompanyhandle
             </a>
           </div>
         </div>
 
-        {/* Bottom copyright */}
-        <div className="mt-7 text-center">
-          <p className="font-mono text-[5.5px] uppercase tracking-[0.16em] text-[#30352B]/30">
-            © 2026 · Loyed & Aneena
+        {/* Bottom line */}
+        <div className="mx-auto mt-10 max-w-[760px] border-t border-[#30352B]/8 sm:mt-12" />
+
+        {/* Copyright */}
+        <div className="mt-6 flex flex-col items-center gap-2 text-center sm:flex-row sm:justify-between">
+          <p
+            className="
+              font-sans
+              text-[9px]
+              tracking-[0.06em]
+              text-[#30352B]/45
+              sm:text-[10px]
+            "
+          >
+            © 2026 Loyed & Aneena
+          </p>
+
+          <p
+            className="
+              font-sans
+              text-[9px]
+              uppercase
+              tracking-[0.14em]
+              text-[#30352B]/35
+              sm:text-[10px]
+            "
+          >
+            With love, always.
           </p>
         </div>
       </div>

@@ -1,18 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { Allura, Cormorant_Garamond } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
 import { weddingConfig } from "@/config/wedding";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const allura = Allura({
-  weight: "400",
-  subsets: ["latin"],
   display: "swap",
 });
 
@@ -30,8 +24,8 @@ export function Hero() {
       "
     >
       {/* =========================================================
-          COLLAGE PHOTOGRAPH
-          ========================================================= */}
+          BACKGROUND IMAGE
+      ========================================================= */}
 
       <div className="absolute inset-0">
         <Image
@@ -39,7 +33,7 @@ export function Hero() {
           alt={weddingConfig.copy.hero.photoAlt}
           fill
           priority
-          quality={88}
+          quality={90}
           sizes="100vw"
           className="
             object-cover
@@ -50,22 +44,22 @@ export function Hero() {
       </div>
 
       {/* =========================================================
-          PHOTOGRAPHIC COLOR TREATMENT
-          ========================================================= */}
+          IMAGE TREATMENT
+      ========================================================= */}
 
-      {/* Subtle sage photographic tint */}
+      {/* Sage tint */}
       <div
         aria-hidden="true"
         className="
           pointer-events-none
           absolute
           inset-0
-          bg-[#30352B]/18
+          bg-[#30352B]/15
           mix-blend-multiply
         "
       />
 
-      {/* Top readability */}
+      {/* Overall readability */}
       <div
         aria-hidden="true"
         className="
@@ -74,16 +68,16 @@ export function Hero() {
           inset-0
           bg-[linear-gradient(
             180deg,
-            rgba(25,30,24,0.62)_0%,
-            rgba(25,30,24,0.16)_22%,
-            transparent_48%,
-            rgba(22,27,22,0.10)_62%,
-            rgba(20,25,20,0.82)_100%
+            rgba(20,25,20,0.58)_0%,
+            rgba(20,25,20,0.16)_22%,
+            rgba(20,25,20,0.02)_44%,
+            rgba(20,25,20,0.26)_72%,
+            rgba(20,25,20,0.84)_100%
           )]
         "
       />
 
-      {/* Bottom cinematic fade */}
+      {/* Bottom cinematic depth */}
       <div
         aria-hidden="true"
         className="
@@ -91,18 +85,18 @@ export function Hero() {
           absolute
           inset-x-0
           bottom-0
-          h-[55%]
+          h-[58%]
           bg-[linear-gradient(
             180deg,
             transparent_0%,
-            rgba(20,25,20,0.14)_25%,
-            rgba(20,25,20,0.52)_62%,
+            rgba(20,25,20,0.10)_20%,
+            rgba(20,25,20,0.46)_63%,
             rgba(20,25,20,0.88)_100%
           )]
         "
       />
 
-      {/* Slight warm center wash */}
+      {/* Soft warm veil */}
       <div
         aria-hidden="true"
         className="
@@ -110,16 +104,16 @@ export function Hero() {
           absolute
           inset-0
           bg-[radial-gradient(
-            ellipse_at_50%_45%,
+            ellipse_at_50%_48%,
             rgba(248,244,234,0.06),
-            transparent_55%
+            transparent_58%
           )]
         "
       />
 
       {/* =========================================================
           EDITORIAL FRAME
-          ========================================================= */}
+      ========================================================= */}
 
       <div
         aria-hidden="true"
@@ -179,17 +173,16 @@ export function Hero() {
 
       {/* =========================================================
           TOP HEADER
-          ========================================================= */}
+      ========================================================= */}
 
       <header
         className="
           absolute
-          left-0
-          right-0
+          inset-x-0
           top-0
           z-30
           flex
-          items-start
+          items-center
           justify-between
           px-7
           pt-8
@@ -219,7 +212,6 @@ export function Hero() {
           </span>
         </div>
 
-        {/* Couple initials */}
         <div
           className={`
             ${cormorant.className}
@@ -232,22 +224,24 @@ export function Hero() {
           `}
         >
           {weddingConfig.couple.firstName?.charAt(0)}
+
           <span className="mx-1.5 text-[#C890A7]">&amp;</span>
+
           {weddingConfig.couple.secondName?.charAt(0)}
         </div>
       </header>
 
       {/* =========================================================
-          FRAME MARKERS
-          ========================================================= */}
+          DESKTOP FRAME LABELS
+      ========================================================= */}
 
-      {/* Desktop */}
       <div
         className="
+          pointer-events-none
           absolute
           left-0
           right-0
-          top-1/3
+          top-[34%]
           z-20
           hidden
           items-center
@@ -262,7 +256,7 @@ export function Hero() {
             text-[7px]
             uppercase
             tracking-[0.32em]
-            text-white/55
+            text-white/45
           "
         >
           FRAME 01
@@ -274,7 +268,7 @@ export function Hero() {
             text-[7px]
             uppercase
             tracking-[0.32em]
-            text-white/55
+            text-white/45
           "
         >
           FRAME 02
@@ -286,7 +280,7 @@ export function Hero() {
             text-[7px]
             uppercase
             tracking-[0.32em]
-            text-white/55
+            text-white/45
           "
         >
           FRAME 03
@@ -295,7 +289,7 @@ export function Hero() {
 
       {/* =========================================================
           MAIN CONTENT
-          ========================================================= */}
+      ========================================================= */}
 
       <div
         className="
@@ -306,7 +300,7 @@ export function Hero() {
           w-full
           flex-col
           justify-end
-          px-7
+          px-6
           pb-24
           pt-32
           sm:px-10
@@ -316,90 +310,75 @@ export function Hero() {
           lg:pb-24
         "
       >
-        <div className="w-full max-w-[920px]">
-          {/* Small editorial label */}
-
-          <div className="mb-5 flex items-center gap-3 sm:mb-7">
-            <span
-              className="
-                font-sans
-                text-[7px]
-                font-medium
-                uppercase
-                tracking-[0.36em]
-                text-[#F8F4EA]/75
-                sm:text-[8px]
-              "
-            >
-              THREE MOMENTS · ONE STORY
-            </span>
-
-            <span className="h-px w-9 bg-[#D7DECB]/55 sm:w-14" />
-          </div>
-
+        <div className="w-full max-w-[1160px]">
           {/* =====================================================
-              MAIN HEADING
-              ===================================================== */}
+              HERO TITLE
+          ===================================================== */}
 
-          <h1
-            className={`
-              ${cormorant.className}
-              max-w-[800px]
-              text-[clamp(3.6rem,14vw,8.8rem)]
-              font-medium
-              leading-[0.78]
-              tracking-[-0.04em]
-              text-[#FFF9F1]
-              drop-shadow-[0_5px_20px_rgba(15,20,15,0.55)]
-              sm:text-[clamp(4.5rem,11vw,8.8rem)]
-            `}
-          >
-            A story
-            <br />
-            <span className="ml-[8%]">in motion.</span>
-          </h1>
+          <div className="max-w-[1050px]">
+            <div className="mb-4 flex items-center gap-3 sm:mb-5">
+              <span className="h-px w-8 bg-[#D7DECB]/55 sm:w-12" />
 
-          {/* Allura statement */}
+              <span
+                className="
+                  font-sans
+                  text-[6px]
+                  font-medium
+                  uppercase
+                  tracking-[0.32em]
+                  text-[#F8F4EA]/65
+                  sm:text-[7px]
+                "
+              >
+                OUR STORY
+              </span>
+            </div>
 
-          <div
-            className={`
-              ${allura.className}
-              ml-[25%]
-              mt-3
-              rotate-[-4deg]
-              text-[clamp(2rem,6vw,3.6rem)]
-              leading-none
-              text-[#D7DECB]
-              drop-shadow-[0_3px_12px_rgba(0,0,0,0.42)]
-              sm:ml-[32%]
-            `}
-          >
-            and somehow, it became us
+            <h1
+              className={`
+                ${cormorant.className}
+                max-w-[980px]
+                text-[#FFF9F1]
+                drop-shadow-[0_6px_24px_rgba(15,20,15,0.58)]
+              `}
+            >
+              <span
+                className="
+                  block
+                  text-[clamp(4rem,15vw,9rem)]
+                  font-medium
+                  leading-[0.78]
+                  tracking-[-0.055em]
+                "
+              >
+                WE FOUND LOVE.
+              </span>
+            </h1>
           </div>
 
           {/* =====================================================
               STORY COPY
-              ===================================================== */}
+          ===================================================== */}
 
           <div
             className="
-              mt-7
-              max-w-[570px]
+              mt-6
+              max-w-[560px]
               border-l
-              border-[#D7DECB]/70
+              border-[#D7DECB]/65
               pl-4
-              sm:mt-9
+              sm:mt-7
               sm:pl-6
             "
           >
             <p
               className={`
                 ${cormorant.className}
-                text-[16px]
-                leading-[1.48]
+                text-[15px]
+                leading-[1.52]
                 text-[#F8F4EA]/92
                 drop-shadow-[0_2px_12px_rgba(0,0,0,0.48)]
-                sm:text-[20px]
+                sm:text-[19px]
                 sm:leading-[1.5]
               `}
             >
@@ -410,21 +389,24 @@ export function Hero() {
           </div>
 
           {/* =====================================================
-              COUPLE / DATE INFORMATION
-              ===================================================== */}
+              COUPLE / DATE / LOCATION
+          ===================================================== */}
 
           <div
             className="
               mt-8
-              flex
-              items-end
-              gap-7
+              grid
+              grid-cols-2
+              gap-x-8
+              gap-y-5
               sm:mt-10
-              sm:gap-11
+              sm:flex
+              sm:items-end
+              sm:gap-10
+              lg:gap-14
             "
           >
             {/* Couple */}
-
             <div>
               <p
                 className="
@@ -432,9 +414,9 @@ export function Hero() {
                   text-[6px]
                   font-medium
                   uppercase
-                  tracking-[0.32em]
-                  text-[#D7DECB]/65
-                  sm:text-[8px]
+                  tracking-[0.3em]
+                  text-[#D7DECB]/60
+                  sm:text-[7px]
                 "
               >
                 THE COUPLE
@@ -451,13 +433,14 @@ export function Hero() {
                 `}
               >
                 {weddingConfig.couple.firstName}
+
                 <span className="mx-1.5 italic text-[#C890A7]">&amp;</span>
+
                 {weddingConfig.couple.secondName}
               </p>
             </div>
 
             {/* Date */}
-
             <div>
               <p
                 className="
@@ -465,9 +448,9 @@ export function Hero() {
                   text-[6px]
                   font-medium
                   uppercase
-                  tracking-[0.32em]
-                  text-[#D7DECB]/65
-                  sm:text-[8px]
+                  tracking-[0.3em]
+                  text-[#D7DECB]/60
+                  sm:text-[7px]
                 "
               >
                 THE DAY
@@ -480,9 +463,9 @@ export function Hero() {
                   text-[8px]
                   font-medium
                   uppercase
-                  tracking-[0.22em]
+                  tracking-[0.2em]
                   text-[#FFF9F1]/90
-                  sm:text-[10px]
+                  sm:text-[9px]
                 "
               >
                 {weddingConfig.date.display}
@@ -490,16 +473,16 @@ export function Hero() {
             </div>
 
             {/* Location */}
-
-            <div className="hidden sm:block">
+            <div className="col-span-2 sm:block">
               <p
                 className="
                   font-sans
-                  text-[8px]
+                  text-[6px]
                   font-medium
                   uppercase
-                  tracking-[0.32em]
-                  text-[#D7DECB]/65
+                  tracking-[0.3em]
+                  text-[#D7DECB]/60
+                  sm:text-[7px]
                 "
               >
                 THE PLACE
@@ -509,9 +492,11 @@ export function Hero() {
                 className={`
                   ${cormorant.className}
                   mt-1
-                  text-[18px]
+                  text-[17px]
                   italic
+                  leading-none
                   text-[#FFF9F1]/90
+                  sm:text-[19px]
                 `}
               >
                 {weddingConfig.date.location}
@@ -522,13 +507,13 @@ export function Hero() {
       </div>
 
       {/* =========================================================
-          MOBILE FRAME INDICATOR
-          ========================================================= */}
+          MOBILE SIDE LABEL
+      ========================================================= */}
 
       <div
         className="
           absolute
-          right-6
+          right-5
           top-1/2
           z-30
           flex
@@ -536,31 +521,30 @@ export function Hero() {
           flex-col
           items-center
           gap-3
-          sm:right-8
           lg:hidden
         "
       >
-        <span className="h-8 w-px bg-[#D7DECB]/40" />
+        <span className="h-7 w-px bg-[#D7DECB]/35" />
 
         <span
           className="
             font-sans
             text-[6px]
             uppercase
-            tracking-[0.28em]
-            text-white/60
+            tracking-[0.26em]
+            text-white/50
             [writing-mode:vertical-rl]
           "
         >
           OUR STORY
         </span>
 
-        <span className="h-8 w-px bg-[#D7DECB]/25" />
+        <span className="h-7 w-px bg-[#D7DECB]/20" />
       </div>
 
       {/* =========================================================
-          DESKTOP SIDE MARKER
-          ========================================================= */}
+          DESKTOP SIDE STORY MARKER
+      ========================================================= */}
 
       <div
         className="
@@ -576,7 +560,7 @@ export function Hero() {
           lg:flex
         "
       >
-        <span className="h-14 w-px bg-[#D7DECB]/40" />
+        <span className="h-12 w-px bg-[#D7DECB]/35" />
 
         <span
           className="
@@ -584,14 +568,14 @@ export function Hero() {
             text-[7px]
             uppercase
             tracking-[0.3em]
-            text-white/55
+            text-white/45
             [writing-mode:vertical-rl]
           "
         >
           THEN
         </span>
 
-        <span className="h-8 w-px bg-[#D7DECB]/20" />
+        <span className="h-7 w-px bg-[#D7DECB]/20" />
 
         <span
           className="
@@ -599,19 +583,19 @@ export function Hero() {
             text-[7px]
             uppercase
             tracking-[0.3em]
-            text-white/80
+            text-white/75
             [writing-mode:vertical-rl]
           "
         >
           NOW
         </span>
 
-        <span className="h-14 w-px bg-[#D7DECB]/40" />
+        <span className="h-12 w-px bg-[#D7DECB]/35" />
       </div>
 
       {/* =========================================================
-          PAGE NUMBER
-          ========================================================= */}
+          BOTTOM LEFT PAGE MARKER
+      ========================================================= */}
 
       <div
         className="
@@ -634,14 +618,14 @@ export function Hero() {
             text-[7px]
             font-medium
             tracking-[0.25em]
-            text-[#F8F4EA]/75
+            text-[#F8F4EA]/70
             sm:text-[8px]
           "
         >
           01
         </span>
 
-        <span className="h-px w-7 bg-[#D7DECB]/45 sm:w-8" />
+        <span className="h-px w-7 bg-[#D7DECB]/40 sm:w-8" />
 
         <span
           className="
@@ -649,7 +633,7 @@ export function Hero() {
             text-[6px]
             uppercase
             tracking-[0.25em]
-            text-[#F8F4EA]/50
+            text-[#F8F4EA]/45
             sm:text-[7px]
           "
         >
@@ -659,7 +643,7 @@ export function Hero() {
 
       {/* =========================================================
           CONTINUE INDICATOR
-          ========================================================= */}
+      ========================================================= */}
 
       <div
         className="
@@ -681,7 +665,7 @@ export function Hero() {
             text-[6px]
             uppercase
             tracking-[0.3em]
-            text-[#F8F4EA]/60
+            text-[#F8F4EA]/55
             [writing-mode:vertical-rl]
             sm:text-[7px]
           "
@@ -689,14 +673,14 @@ export function Hero() {
           CONTINUE
         </span>
 
-        <span className="h-8 w-px bg-[#D7DECB]/45 sm:h-9" />
+        <span className="h-8 w-px bg-[#D7DECB]/40 sm:h-9" />
 
         <span className="h-1.5 w-1.5 rounded-full bg-[#C890A7]" />
       </div>
 
       {/* =========================================================
           SUBTLE FILM GRAIN
-          ========================================================= */}
+      ========================================================= */}
 
       <div
         aria-hidden="true"
@@ -705,7 +689,7 @@ export function Hero() {
           absolute
           inset-0
           z-40
-          opacity-[0.035]
+          opacity-[0.03]
           mix-blend-soft-light
         "
         style={{
