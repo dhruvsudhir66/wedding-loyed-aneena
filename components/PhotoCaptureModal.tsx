@@ -13,7 +13,7 @@ type PhotoCaptureModalProps = {
  * that you provide.
  */
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxJ2RQiVhs2-wJ0pjcJPRjFm-M3OmFiYUfqSptQBOC8nvH39UPRCtc4BFwAN1-kn--7/exec";
+  "https://script.google.com/macros/s/AKfycbw8uZY8yUtqIkhLTCcuiWBbxvYMyGwpb2180wQX1y3oRp-Q3HlPk_HDmid0LWV91XV3/exec";
 
 /* =========================================================
    IMAGE RESIZE
