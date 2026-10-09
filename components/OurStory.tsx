@@ -6,7 +6,7 @@ import { weddingConfig } from "@/config/wedding";
 
 const photos = {
   background: "/images/couple-gallery-6.webp",
-  childhood: "/images/childhood-couple.jpeg",
+  childhood: "/images/childhood-couple.webp",
 };
 
 export default function OurStory() {

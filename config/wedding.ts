@@ -13,8 +13,8 @@ export const weddingConfig = {
     location: "Kerala, India",
   },
   assets: {
-    invitation: "/images/couple-holding-hands.png",
-    hero: "/images/hero-collage.png",
+    invitation: "/images/couple-holding-hands.webp",
+    hero: "/images/hero-collage.webp",
   },
   theme: {
     saveDateBackground: "#e4d5bd",

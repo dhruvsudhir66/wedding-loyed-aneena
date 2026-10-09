@@ -12,7 +12,8 @@ type PhotoCaptureModalProps = {
  * Replace this with the Google Apps Script Web App URL
  * that you provide.
  */
-const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxJ2RQiVhs2-wJ0pjcJPRjFm-M3OmFiYUfqSptQBOC8nvH39UPRCtc4BFwAN1-kn--7/exec";
 
 /* =========================================================
    IMAGE RESIZE
@@ -275,14 +276,6 @@ export default function PhotoCaptureModal({
 
   const submitPhoto = async () => {
     if (!capturedPhoto) {
-      return;
-    }
-
-    if (GOOGLE_SCRIPT_URL === "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
-      setStatus("error");
-
-      setErrorMessage("Google Apps Script URL has not been configured yet.");
-
       return;
     }
 

@@ -6,8 +6,8 @@ import { weddingConfig } from "@/config/wedding";
 
 const photos = {
   main: "/images/loyed.webp",
-  second: "/images/groom-4.jpeg",
-  third: "/images/groom-3.jpeg",
+  second: "/images/groom-4.webp",
+  third: "/images/groom-3.webp",
 };
 
 function PhotoCard({

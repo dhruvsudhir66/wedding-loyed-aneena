@@ -11,7 +11,8 @@ type RSVPModalProps = {
 /*
  * Replace with your Google Apps Script Web App URL.
  */
-const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxQYfqup-UKdRkvni58L0NMGIYOTY_txKpBRcMzmgQzifhi7c3W-I265ACnQkNeIwMe/exec";
 
 export default function RSVPModal({ open, onClose }: RSVPModalProps) {
   const [mounted, setMounted] = useState(false);
@@ -100,12 +101,6 @@ export default function RSVPModal({ open, onClose }: RSVPModalProps) {
 
     if (!attending) {
       setErrorMessage("Please let us know if you will attend.");
-      setStatus("error");
-      return;
-    }
-
-    if (GOOGLE_SCRIPT_URL === "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
-      setErrorMessage("RSVP service is not configured yet.");
       setStatus("error");
       return;
     }
